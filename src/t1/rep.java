@@ -25,7 +25,8 @@ class MyPanel extends JPanel
      * repaint方法会调用paint方法，并自动获得Graphics对像 
      * 然后可以用该对像进行2D画图 
      * 注：该方法是重写了JPanel的paint方法 
-     */  
+     */
+    //test git 3
     public void paint(Graphics g)  
     {  
         //调用的super.paint(g),让父类做一些事前的工作，如刷新屏幕  

@@ -8,7 +8,7 @@ import java.awt.Dimension;
  * To do list:
  * 		修复coordination函数有可能出现的顺序错误——不仅处理子节点，也处理所有子节点之前的节点
  */
-
+//test git 1
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;

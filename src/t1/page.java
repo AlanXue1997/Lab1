@@ -21,6 +21,7 @@ public class page {
 	/**
 	 * Launch the application.
 	 */
+	//test git 2
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
