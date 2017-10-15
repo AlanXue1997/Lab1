@@ -37,6 +37,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+
 class DrawPanel extends JPanel{
 	private GraphDraft G;
 	public static final int ratio = 100;           //200   130
