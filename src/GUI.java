@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 
 /*
- * To do list:
+ * To do list
  * 		修复coordination函数有可能出现的顺序错误——不仅处理子节点，也处理所有子节点之前的节点
  */
 
