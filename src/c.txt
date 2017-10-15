@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 ABCDEFg dd
+=======
+ABCDE3
+>>>>>>> C4
