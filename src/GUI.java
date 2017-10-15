@@ -1761,7 +1761,6 @@ class Picture{
 			}
 			if(max_left < 1000 && max_left > current_coordination) current_coordination = max_left;
 		}
-		//System.out.print("PPPPPPPP----coordination = " + current_coordination);
 		orders2[current_layer] = current_coordination;
 		order2[point] = current_coordination;
 		//System.out.println("Point " + point + " is at (" + order2[point] + "," + layer[point] + ")");
