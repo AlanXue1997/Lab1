@@ -15,7 +15,7 @@ import javax.swing.JTextField;
  */
 
 // hard to understand some of the functions
-public class Gui {
+public class GUI {
   JFrame frame;
   Picture G;
   GraphDraft g;
@@ -39,7 +39,7 @@ public class Gui {
     EventQueue.invokeLater(new Runnable() {
       public void run() {
         try {
-          Gui window = new Gui();
+          GUI window = new GUI();
           window.frame.setVisible(true);
         } catch (Exception e) {
           e.printStackTrace();
@@ -51,7 +51,7 @@ public class Gui {
   /**
    * Create the application.
    */
-  public Gui() {
+  public GUI() {
     initialize();
   }
 
