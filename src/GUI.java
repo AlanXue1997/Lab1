@@ -60,7 +60,37 @@ public class GUI {
   }
 
   public String queryBridgeWords(String word1, String word2) {
-    return null;
+	  for (int i = 0; i < g.getPoints().length; i++) {
+          if (g.getPoints()[i].getSt() != null
+              && (g.getPoints()[i].getSt().equals(word1)
+                  || g.getPoints()[i].getSt().equals(word2))) {
+            g.getPointstate()[i] = 2;
+          } else {
+            g.getPointstate()[i] = 0;
+          }
+          for (int j = 0; j < g.getPoints().length; j++) {
+            g.getEdgestate()[i][j] = 0;
+          }
+        }
+        int[] result = G.findBridge(word1, word2);
+        if (result[0] == -1) {
+          return "“" + word1 + "” doesn't exist!";
+        } else if (result[0] == -2) {
+          return "“" + word2 + "” doesn't exist!";
+        } else if (result[0] == -3) {
+          return "“" + word1 + "” and “" + word2 + "” doesn't exist!";
+        } else if (result[0] == -4) {
+          return "There is no bridge between them!";
+        } else if (result[0] > 0) {
+          String text = "The bridge words from “" + word1 + "” to “" + word2 + "” is:";
+          for (int i = 0; i < result[0]; i++) {
+            text += g.getPoints()[result[i + 1]].getSt();
+            text += " ";
+            g.getPointstate()[result[i + 1]] = 1;
+          }
+          return text;
+        }
+        return "No bridge words from “" + word1 + "” to “" + word2 + "”!";
   }
 
   public String gernerateNewText(String inputText) {
@@ -194,39 +224,11 @@ public class GUI {
       public void actionPerformed(ActionEvent e) {
         String word1 = textField1.getText().replace(" ", "");
         String word2 = textField2.getText().replace(" ", "");
-        for (int i = 0; i < g.getPoints().length; i++) {
-          if (g.getPoints()[i].getSt() != null
-              && (g.getPoints()[i].getSt().equals(word1)
-                  || g.getPoints()[i].getSt().equals(word2))) {
-            g.getPointstate()[i] = 2;
-          } else {
-            g.getPointstate()[i] = 0;
-          }
-          for (int j = 0; j < g.getPoints().length; j++) {
-            g.getEdgestate()[i][j] = 0;
-          }
-        }
-        int[] result = G.findBridge(word1, word2);
-        if (result[0] == -1) {
-          textField5.setText(word1 + " doesn't exist!");
-        } else if (result[0] == -2) {
-          textField5.setText(word2 + " doesn't exist!");
-        } else if (result[0] == -3) {
-          textField5.setText(word1 + " and " + word2 + " doesn't exist!");
-        } else if (result[0] == -4) {
-          textField5.setText("There is no bridge between them!");
-        } else if (result[0] > 0) {
-          String text = "";
-          for (int i = 0; i < result[0]; i++) {
-            text += g.getPoints()[result[i + 1]].getSt();
-            text += "  ";
-            g.getPointstate()[result[i + 1]] = 1;
-          }
+        String text = queryBridgeWords(word1, word2);
           textField5.setText(text);
           panel.display(g);
         }
-      }
-    });
+      });
     btnNewButton2.setBounds(966, 107, 133, 29);
     frame.getContentPane().add(btnNewButton2);
 

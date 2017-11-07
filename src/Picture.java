@@ -832,4 +832,8 @@ public class Picture {
       indegree[y]++;
     }
   }
+  
+  protected Table getTable() {
+	  return table;
+  }
 }
