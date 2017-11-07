@@ -1,3 +1,4 @@
+package GUI;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -32,6 +33,18 @@ public class GUI {
   private JTextField textField4;
   private JTextArea textField5;
 
+  public void setG(Picture G) {
+	  this.G = G;
+  }
+  
+  public void setg(GraphDraft g) {
+	  this.g = g;
+  }
+  
+  public Picture getG() {
+	  return G;
+  }
+  
   /**
    * Launch the application.
    */
@@ -98,7 +111,59 @@ public class GUI {
   }
 
   public String calcShortestPath(String word1, String word2) {
-    return null;
+	  if (word2 != null && !word2.equals("")) {
+          int[] result = G.shortestPath(word1, word2);
+
+          for (int i = 0; i < g.getPoints().length; i++) {
+            g.getPointstate()[i] = 0;
+            for (int j = 0; j < g.getPoints().length; j++) {
+              g.getEdgestate()[i][j] = 0;
+            }
+          }
+
+          if (result[0] == 0) {
+            return word1 + " and " + word2 + " are not reachable!";
+          } else if (result[0] == -1) {
+            return word1 + " doesn't exist!";
+          } else if (result[0] == -2) {
+            return word2 + " doesn't exist!";
+          } else if (result[0] == -3) {
+            return word1 + " and " + word2 + " doesn't exist!";
+          } else {
+
+            String shortpath = g.getPoints()[result[1]].getSt(); // word1
+            g.getPointstate()[result[1]] = 1;
+            for (int i = 2; i <= result[0]; i++) {
+              g.getEdgestate()[result[i - 1]][result[i]] = 1;
+              if (g.getPoints()[result[i]].getSt() != null) {
+                g.getPointstate()[result[i]] = 1;
+                shortpath += " => " + g.getPoints()[result[i]].getSt();
+              }
+            }
+            shortpath += " 路径长度为： " + result[result[0] + 1];
+            return shortpath;
+          }
+        } else {
+          boolean have = false;
+          for (int i = 0; i < g.getPoints().length; i++) {
+            if (g.getPoints()[i].getSt() != null
+                && g.getPoints()[i].getSt().equals(word1)) {
+              have = true;
+            }
+          }
+          if (have) {
+            int[] result = G.shortestPath(word1);
+            String s = "";
+            for (int i = 0; i < result.length; i++) {
+              if (g.getPoints()[i].getSt() != null) {
+                s += g.getPoints()[i].getSt() + ":" + result[i] + "\n";
+              }
+            }
+            return s;
+          } else {
+            return word1 + " doesn't exist!";
+          }
+        }
   }
 
   public String randomWalk() {
@@ -160,60 +225,8 @@ public class GUI {
       public void actionPerformed(ActionEvent e) {
         String word1 = textField1.getText().replace(" ", "");
         String word2 = textField2.getText().replace(" ", "");
-        if (word2 != null && !word2.equals("")) {
-          int[] result = G.shortestPath(word1, word2);
-
-          for (int i = 0; i < g.getPoints().length; i++) {
-            g.getPointstate()[i] = 0;
-            for (int j = 0; j < g.getPoints().length; j++) {
-              g.getEdgestate()[i][j] = 0;
-            }
-          }
-
-          if (result[0] == 0) {
-            textField5.setText(word1 + " and " + word2 + " are not reachable!");
-          } else if (result[0] == -1) {
-            textField5.setText(word1 + " doesn't exist!");
-          } else if (result[0] == -2) {
-            textField5.setText(word2 + " doesn't exist!");
-          } else if (result[0] == -3) {
-            textField5.setText(word1 + " and " + word2 + " doesn't exist!");
-          } else {
-
-            String shortpath = g.getPoints()[result[1]].getSt(); // word1
-            g.getPointstate()[result[1]] = 1;
-            for (int i = 2; i <= result[0]; i++) {
-              g.getEdgestate()[result[i - 1]][result[i]] = 1;
-              if (g.getPoints()[result[i]].getSt() != null) {
-                g.getPointstate()[result[i]] = 1;
-                shortpath += " => " + g.getPoints()[result[i]].getSt();
-              }
-            }
-            shortpath += " 路径长度为： " + result[result[0] + 1];
-            textField5.setText(shortpath);
-            panel.display(g);
-          }
-        } else {
-          boolean have = false;
-          for (int i = 0; i < g.getPoints().length; i++) {
-            if (g.getPoints()[i].getSt() != null
-                && g.getPoints()[i].getSt().equals(word1)) {
-              have = true;
-            }
-          }
-          if (have) {
-            int[] result = G.shortestPath(word1);
-            String s = "";
-            for (int i = 0; i < result.length; i++) {
-              if (g.getPoints()[i].getSt() != null) {
-                s += g.getPoints()[i].getSt() + ":" + result[i] + "\n";
-              }
-            }
-            textField5.setText(s);
-          } else {
-            textField5.setText(word1 + " doesn't exist!");
-          }
-        }
+        textField5.setText(calcShortestPath(word1, word2));
+        panel.display(g);
       }
     });
     btnNewButton1.setBounds(1188, 107, 133, 29);
