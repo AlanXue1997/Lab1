@@ -92,8 +92,7 @@ public class GUI {
           return "“" + word2 + "” doesn't exist!";
         } else if (result[0] == -3) {
           return "“" + word1 + "” and “" + word2 + "” doesn't exist!";
-        } else if (result[0] == -4) {
-          return "There is no bridge between them!";
+
         } else if (result[0] > 0) {
           String text = "The bridge words from “" + word1 + "” to “" + word2 + "” is:";
           for (int i = 0; i < result[0]; i++) {
@@ -151,7 +150,7 @@ public class GUI {
               have = true;
             }
           }
-          if (have) {
+          //if (have) {
             int[] result = G.shortestPath(word1);
             String s = "";
             for (int i = 0; i < result.length; i++) {
@@ -160,9 +159,9 @@ public class GUI {
               }
             }
             return s;
-          } else {
-            return word1 + " doesn't exist!";
-          }
+          //} else {
+            //return word1 + " doesn't exist!";
+          //}
         }
   }
 
