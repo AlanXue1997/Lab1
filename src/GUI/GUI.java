@@ -109,6 +109,7 @@ public class GUI {
     return null;
   }
 
+  
   public String calcShortestPath(String word1, String word2) {
 	  if (word2 != null && !word2.equals("")) {
           int[] result = G.shortestPath(word1, word2);
@@ -150,7 +151,6 @@ public class GUI {
               have = true;
             }
           }
-          //if (have) {
             int[] result = G.shortestPath(word1);
             String s = "";
             for (int i = 0; i < result.length; i++) {
@@ -159,9 +159,6 @@ public class GUI {
               }
             }
             return s;
-          //} else {
-            //return word1 + " doesn't exist!";
-          //}
         }
   }
 
