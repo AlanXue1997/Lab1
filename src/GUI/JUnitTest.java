@@ -19,7 +19,7 @@ public class JUnitTest {
 			"to:3\n" + 
 			"be:4\n" + 
 			"self:5\n" + 
-			"evident:6\n" + 
+			"evident:6\n" +
 			"that:5\n" + 
 			"all:6\n" + 
 			"men:7\n" + 
